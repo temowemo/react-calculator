@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+
+body {
+  margin: 0;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  font-family: "Roboto Mono", monospace;
+}
+.app:focus {
+  outline: none;
+}
+
+.calculator {
+  max-width: 360px;
+  height: 420px;
+  flex-grow: 1;
+  margin: 12px;
+  border: 3px solid black;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 90px 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "d d d d"
+    "s s s o"
+    "n n n o"
+    "n n n o"
+    "n n n o"
+    "n n n o";
+}
+.calculator :focus {
+  outline: none;
+}
+
+.grid-area-display {
+  grid-area: d;
+  background-color: rgb(61, 61, 61);
+  color: rgb(241, 241, 241);
+  display: flex;
+  padding: 12px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  border-bottom: 2px solid black;
+}
+.display-text {
+  transform-origin: right bottom 0px;
+}
+
+.grid-area-special {
+  grid-area: s;
+  background-color: rgb(0, 217, 255);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+}
+.grid-area-special .key:hover {
+  background-color: rgb(0, 237, 255);
+  cursor: pointer;
+}
+.grid-area-special .key.active {
+  background-color: rgb(0, 237, 255);
+}
+
+.grid-area-normal {
+  grid-area: n;
+  background-color: rgb(204, 204, 204);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "n n n"
+    "n n n"
+    "n n n"
+    "n n";
+}
+.grid-area-normal .key:hover {
+  background-color: rgb(224, 224, 224);
+  cursor: pointer;
+}
+.grid-area-normal .key.active {
+  background-color: rgb(224, 224, 224);
+}
+
+.grid-area-operator {
+  grid-area: o;
+  background-color: rgb(255, 217, 49);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "n n n"
+    "n n n"
+    "n n n"
+    "n n";
+}
+.grid-area-operator .key:hover {
+  background-color: rgb(255, 237, 69);
+  cursor: pointer;
+}
+.grid-area-operator .key.active {
+  background-color: rgb(255, 237, 69);
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  user-select: none;
+  transition: background-color 0.05s;
+}
+
+.key.disabled {
+  font-size: 0.8em;
+}
+.key.disabled:hover {
+  background-color: inherit;
+  cursor: default;
+}
+
+.normal {
+  grid-area: n;
+}
+
+@media (hover: none) {
+  .grid-area-special .key:hover {
+    background-color: rgb(0, 217, 255);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  }
+  .grid-area-special .key.active {
+    background-color: rgb(0, 237, 255);
+  }
+
+  .grid-area-normal .key:hover {
+    background-color: rgb(204, 204, 204);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  }
+  .grid-area-normal .key.active {
+    background-color: rgb(224, 224, 224);
+  }
+
+  .grid-area-operator .key:hover {
+    background-color: rgb(255, 217, 49);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  }
+  .grid-area-operator .key.active {
+    background-color: rgb(255, 237, 69);
+  }
+}
