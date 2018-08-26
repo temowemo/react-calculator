@@ -2,7 +2,13 @@ import React from "react"
 import ReactDOM from "react-dom"
 
 import { keys } from "./ui-data"
-import { keyMap, isOperator, isNumber, isValidChar, calc } from "./utils"
+import {
+  keyMap,
+  isOperator,
+  isNumber,
+  isValidChar,
+  calc,
+} from "./utils"
 
 import "./styles.css"
 
@@ -67,7 +73,8 @@ class App extends React.Component {
       const padding = paddingLeft + paddingRight
       const maxWidth = displayWidth - padding
       const displayText = this.displayText.current
-      const displayTextWidth = displayText && displayText.clientWidth
+      const displayTextWidth =
+        displayText && displayText.clientWidth
       if (displayTextWidth >= maxWidth) {
         this.setState({
           scale: maxWidth / displayTextWidth,
@@ -84,7 +91,10 @@ class App extends React.Component {
       prevState => {
         return {
           ...prevState,
-          activeKeys: { ...prevState.activeKeys, [char]: true },
+          activeKeys: {
+            ...prevState.activeKeys,
+            [char]: true,
+          },
         }
       },
       () => {
@@ -92,7 +102,10 @@ class App extends React.Component {
           this.setState(prevState => {
             return {
               ...prevState,
-              activeKeys: { ...prevState.activeKeys, [char]: false },
+              activeKeys: {
+                ...prevState.activeKeys,
+                [char]: false,
+              },
             }
           })
         }, 100)
@@ -108,7 +121,13 @@ class App extends React.Component {
     }
   }
   handleKeySelect = char => {
-    const { displayText, history, lastOperator, x, activeKeys } = this.state
+    const {
+      displayText,
+      history,
+      lastOperator,
+      x,
+      activeKeys,
+    } = this.state
     if (!isValidChar(char)) {
       return
     }
@@ -121,7 +140,11 @@ class App extends React.Component {
     } else if (char === "±") {
       return this.setState({
         displayText:
-          displayText === "0" ? displayText : `-${Number(displayText)}`,
+          displayText === "0"
+            ? displayText
+            : displayText.includes("-")
+              ? displayText.replace("-", "")
+              : `-${Number(displayText)}`,
       })
     } else if (char === "%") {
       return this.setState({
@@ -136,7 +159,9 @@ class App extends React.Component {
           })
         : this.setState({
             displayText:
-              displayText === "0" ? `${char}` : `${displayText}${char}`,
+              displayText === "0"
+                ? `${char}`
+                : `${displayText}${char}`,
             history: [...history, char],
           })
     } else if (char === ".") {
@@ -159,7 +184,11 @@ class App extends React.Component {
             history: [...history.slice(0, -1), char],
           })
         : this.setState({
-            displayText: `${calc(x, lastOperator, Number(displayText))}`,
+            displayText: `${calc(
+              x,
+              lastOperator,
+              Number(displayText)
+            )}`,
             lastOperator: char,
             history: [...history, char],
             x: calc(x, lastOperator, Number(displayText)),
@@ -168,7 +197,8 @@ class App extends React.Component {
       return this.setState({
         displayText: `${calc(
           x,
-          !isOperator(history[history.length - 1]) && lastOperator,
+          !isOperator(history[history.length - 1]) &&
+            lastOperator,
           Number(displayText)
         )}`,
         lastOperator: null,
@@ -178,7 +208,8 @@ class App extends React.Component {
             : [...history, char],
         x: calc(
           x,
-          !isOperator(history[history.length - 1]) && lastOperator,
+          !isOperator(history[history.length - 1]) &&
+            lastOperator,
           Number(displayText)
         ),
       })
@@ -198,11 +229,15 @@ class App extends React.Component {
         tabIndex="0"
         ref={this.app}>
         <div className="calculator">
-          <div className="grid-area-display" ref={this.display}>
+          <div
+            className="grid-area-display"
+            ref={this.display}>
             <span
               className="display-text"
               ref={this.displayText}
-              style={{ transform: `scale(${scale},${scale})` }}>
+              style={{
+                transform: `scale(${scale},${scale})`,
+              }}>
               {displayText}
             </span>
           </div>
@@ -213,10 +248,16 @@ class App extends React.Component {
               return (
                 <div
                   key={i}
-                  className={`key ${!k.active && "disabled"} ${active &&
-                    "active"}`}
-                  onClick={!k.active ? null : this.handleKeyClick(k.value)}>
-                  <span className="key-text">{k.value}</span>
+                  className={`key ${!k.active &&
+                    "disabled"} ${active && "active"}`}
+                  onClick={
+                    !k.active
+                      ? null
+                      : this.handleKeyClick(k.value)
+                  }>
+                  <span className="key-text">
+                    {k.value}
+                  </span>
                 </div>
               )
             })}
@@ -228,10 +269,16 @@ class App extends React.Component {
               return (
                 <div
                   key={i}
-                  className={`key ${!k.active && "disabled"} ${active &&
-                    "active"}`}
-                  onClick={!k.active ? null : this.handleKeyClick(k.value)}>
-                  <span className="key-text">{k.value}</span>
+                  className={`key ${!k.active &&
+                    "disabled"} ${active && "active"}`}
+                  onClick={
+                    !k.active
+                      ? null
+                      : this.handleKeyClick(k.value)
+                  }>
+                  <span className="key-text">
+                    {k.value}
+                  </span>
                 </div>
               )
             })}
@@ -243,10 +290,16 @@ class App extends React.Component {
               return (
                 <div
                   key={i}
-                  className={`key ${!k.active && "disabled"} ${active &&
-                    "active"}`}
-                  onClick={!k.active ? null : this.handleKeyClick(k.value)}>
-                  <span className="key-text">{k.value}</span>
+                  className={`key ${!k.active &&
+                    "disabled"} ${active && "active"}`}
+                  onClick={
+                    !k.active
+                      ? null
+                      : this.handleKeyClick(k.value)
+                  }>
+                  <span className="key-text">
+                    {k.value}
+                  </span>
                 </div>
               )
             })}
